@@ -8,5 +8,5 @@ time.sleep(5)
 print(r.headers['content-type'])
 time.sleep(5)
 print(r.encoding)
-time.sleep(5)gi
+time.sleep(5)
 print(r.json)

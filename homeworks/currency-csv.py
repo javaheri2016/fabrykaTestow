@@ -41,6 +41,7 @@ def currency():
         print('Serwis chwilowo niedostępny')
     return rate
 
+
 create_csv()
 while True:
     currency()
