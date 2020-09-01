@@ -5,6 +5,7 @@ import time
 driver = webdriver.Chrome('/Users/katarzynajavaheri/PycharmProjects/tapsGitProject/chromedriver')
 
 driver.get('https://javaheri.pl')
+driver.maximize_window()
 link = driver.find_element_by_link_text('KONTAKT')
 link.click()
 scrolling_to_element(driver, '//*[@id="post-23"]/div[2]/div/div/div/div/section[3]/div/div/div/div/div/div[4]/div/div/div')
