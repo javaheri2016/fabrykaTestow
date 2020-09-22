@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "24768876-6af7-4e8a-b3b4-1734c8411fb3",
+		"name": "Kurs TAPS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check list of posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae7a03d1-1458-4d5b-9667-4d77adc36415",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"userId\", \"title\", \"body\");",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check one post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13d5fbaf-d59d-4977-817d-cd30357f7ae8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"pm.test(\"Post number is correct\", () => {",
+							"  const responseJson = pm.response.json();",
+							"  pm.expect(responseJson.id).to.eql(JSON.parse(environment.post_number));",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a365c0e4-2179-4cf1-8718-39877d680c24",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{post_number}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_number}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check comments list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92af6047-65e8-4978-8b47-68c8ecc7125a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"postId\", JSON.parse(environment.post_number));",
+							"    pm.expect(pm.response.text()).to.include(\"name\");",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"    pm.expect(pm.response.text()).to.include(\"body\");",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"array\");",
+							"    pm.expect(responseJson[0]).to.be.an(\"object\");",
+							"    pm.expect(responseJson[0].email).to.be.a(\"string\");",
+							"    pm.expect(responseJson[0].body).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{post_number}}/comments",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_number}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check comment list 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc1ac6ee-b57c-48c9-a9ca-f1412600f7d6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"postId\", JSON.parse(environment.post_number));",
+							"    pm.expect(pm.response.text()).to.include(\"name\");",
+							"    pm.expect(pm.response.text()).to.include(\"email\");",
+							"    pm.expect(pm.response.text()).to.include(\"body\");",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"array\");",
+							"    pm.expect(responseJson[0]).to.be.an(\"object\");",
+							"    pm.expect(responseJson[0].email).to.be.a(\"string\");",
+							"    pm.expect(responseJson[0].body).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comments?postId={{post_number}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "{{post_number}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check user's posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6392999-bb29-4196-81a4-a33d3499c357",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 250ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(250);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"userId\", JSON.parse(environment.post_number));",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"    pm.expect(pm.response.text()).to.include(\"title\");",
+							"    pm.expect(pm.response.text()).to.include(\"body\");",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"array\");",
+							"    pm.expect(responseJson[0]).to.be.an(\"object\");",
+							"    pm.expect(responseJson[0].id).to.be.a(\"number\");",
+							"    pm.expect(responseJson[0].body).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts?userId={{user_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a new post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "56d564e6-faa7-4690-8d99-87b1a248a59a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"object\");",
+							"    pm.expect(responseJson.id).to.be.a(\"number\");",
+							"    pm.expect(responseJson.userId).to.be.a(\"number\");",
+							"    pm.expect(responseJson.title).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 1,\n  \"title\": \"title test\",\n  \"body\": \"test test test\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad437359-0cde-41a6-be71-eb009ae741ca",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 350ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"object\");",
+							"    pm.expect(responseJson[0]).to.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts/{{post_number}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_number}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit a post by put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13623b4d-a4e7-49de-a9dd-48f258c27f0d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"object\");",
+							"    pm.expect(responseJson.id).to.be.a(\"number\");",
+							"    pm.expect(responseJson.userId).to.be.a(\"number\");",
+							"    pm.expect(responseJson.title).to.be.a(\"string\");",
+							"    pm.expect(responseJson.body).to.be.undefined;",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\", JSON.parse(environment.post_number));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 1,\n  \"title\": \"title put test\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts/{{post_number}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_number}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit a post by patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "66d1613f-2ffc-4204-96b6-90a60f6a395d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");",
+							"});",
+							"pm.test(\"Test data type of the response\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.be.an(\"object\");",
+							"    pm.expect(responseJson.id).to.be.a(\"number\");",
+							"    pm.expect(responseJson.userId).to.be.a(\"number\");",
+							"    pm.expect(responseJson.title).to.be.a(\"string\");",
+							"    pm.expect(responseJson.body).to.be.a(\"string\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\", JSON.parse(environment.post_number));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"body\": \"patch test test test\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/posts/{{post_number}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts",
+						"{{post_number}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
