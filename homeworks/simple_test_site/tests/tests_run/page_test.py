@@ -113,43 +113,39 @@ class Tests(unittest.TestCase):
         drag_and_drop_page.click_drag_and_drop_tab(self.driver)
         self.assertTrue(drag_and_drop_page.drag_and_drop_content_visible(self.driver))
 
-    def test24_drag_and_drop_pristine(self):
+    def test24_drag_and_drop_changed(self):
         drag_and_drop_page.click_drag_and_drop_tab(self.driver)
-        self.assertTrue(drag_and_drop_page.check_pristine_state(self.driver))
+        self.assertTrue(drag_and_drop_page.check_drag_and_drop(self.driver))
 
-    def test25_drag_and_drop_changed(self):
-        drag_and_drop_page.click_drag_and_drop_tab(self.driver)
-        self.assertTrue(drag_and_drop_page.check_changed_state(self.driver))
-
-    def test26_status_codes_visibility(self):
+    def test25_status_codes_visibility(self):
         status_codes_page.click_codes_tab(self.driver)
         self.assertTrue(status_codes_page.codes_content_visible(self.driver))
 
-    def test27_status_code_200(self):
+    def test26_status_code_200(self):
         status_codes_page.click_codes_tab(self.driver)
         self.assertTrue(status_codes_page.code_200(self.driver))
 
-    def test28_status_code_305(self):
+    def test27_status_code_305(self):
         status_codes_page.click_codes_tab(self.driver)
         self.assertTrue(status_codes_page.code_305(self.driver))
 
-    def test29_status_code_404(self):
+    def test28_status_code_404(self):
         status_codes_page.click_codes_tab(self.driver)
         self.assertTrue(status_codes_page.code_404(self.driver))
 
-    def test30_status_code_500(self):
+    def test29_status_code_500(self):
         status_codes_page.click_codes_tab(self.driver)
         self.assertTrue(status_codes_page.code_500(self.driver))
 
-    def test31_iframe_visibility(self):
+    def test30_iframe_visibility(self):
         iframe_page.click_iframe_tab(self.driver)
         self.assertTrue(iframe_page.iframe_content_visible(self.driver))
 
-    def test32_iframe_click_first_button(self):
+    def test31_iframe_click_first_button(self):
         iframe_page.click_iframe_tab(self.driver)
         self.assertTrue(iframe_page.click_inside_iframe(self.driver))
 
-    def test33_iframe_click_second_button(self):
+    def test32_iframe_click_second_button(self):
         iframe_page.click_iframe_tab(self.driver)
         self.assertTrue(iframe_page.click_inside_iframe(self.driver))
 

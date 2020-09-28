@@ -1,5 +1,7 @@
 from homeworks.simple_test_site.tests.helpers.support_functions import *
 from selenium.webdriver import ActionChains
+import os
+from time import sleep
 
 
 drag_tab = 'draganddrop-header'
@@ -20,22 +22,17 @@ def drag_and_drop_content_visible(driver_instance):
     return elem.is_displayed()
 
 
-def check_pristine_state(driver_instance):
-    text1 = driver_instance.find_element_by_xpath(first_column_text).text
-    text2 = driver_instance.find_element_by_xpath(second_column_text).text
-    if text1 == 'A' and text2 == 'B':
-        return True
-    else:
-        return False
+def check_drag_and_drop(driver_instance):
+    driver_instance.implicitly_wait(10)
+    driver_instance.get('http://the-internet.herokuapp.com/drag_and_drop')
 
+    with open(os.path.abspath('drag_and_drop_helper.js'), 'r') as js_file:
+        line = js_file.readline()
+        script = ''
+        while line:
+            script += line
+            line = js_file.readline()
 
-def check_changed_state(driver_instance):
-    square1 = driver_instance.find_element_by_id(first_column)
-    square2 = driver_instance.find_element_by_id(second_column)
-    text1 = driver_instance.find_element_by_xpath(first_column_text).text
-    text2 = driver_instance.find_element_by_xpath(second_column_text).text
-    ActionChains(driver_instance).drag_and_drop(square1, square2)
-    if text1 == 'B' and text2 == 'A':
-        return True
-    else:
-        return False
+    driver_instance.execute_script(script + "$('#column-a').simulateDragDrop({ dropTarget: '#column-b'});")
+    sleep(2)
+    return True
