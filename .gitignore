@@ -2,3 +2,4 @@ venv
 .idea
 chromedriver
 .DS_Store
+.pytest_cache
