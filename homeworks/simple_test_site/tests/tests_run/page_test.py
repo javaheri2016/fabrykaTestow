@@ -2,11 +2,15 @@ import unittest
 from selenium import webdriver
 from homeworks.simple_test_site.config.test_settings import TestSettings
 from homeworks.simple_test_site.tests.page_objects import main_page, users_page, inputs_page, hovers_page, dropdown_page, checkboxes_page, add_remove_page, date_picker_page, basic_auth_page, form_page, key_presses_page, drag_and_drop_page, status_codes_page, iframe_page
+from pytest import *
 
 
 class Tests(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        self.selenium_grid_url = 'http://192.168.43.44:4444/wd/hub'
+        self.capabilities = webdriver.DesiredCapabilities.CHROME.copy()
+        self.driver = webdriver.Remote(desired_capabilities=self.capabilities, command_executor=self.selenium_grid_url)
+        # self.driver = webdriver.Chrome() # local
         self.url = TestSettings.page_url
         self.driver.get(self.url)
         self.driver.maximize_window()
